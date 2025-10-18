@@ -1,24 +1,27 @@
-import { Controller, Post } from '@nestjs/common';
-import { PrismaService } from 'src/database/prisma.service';
-
-@Controller('api/users')
+import {
+    Body, Controller, Delete, Get, Post, Put, Param,
+    ParseIntPipe
+} from '@nestjs/common';
+import { CreateUserDTO } from 'src/dtos/create-user-dto';
+import { UsersRepository } from './users.repository';
+@Controller('users')
 export class UsersController {
     constructor(
-        private readonly prismaService: PrismaService,
-    ) { }
-
+ private repository: UsersRepository
+ ) { }
+    @Get()
+    async getAllUsers() {
+        return {}
+    }
     @Post()
-    async create() {
-        const userCreated = await this.prismaService.user.create({
-            data: {
-                name: 'João da Silva',
-                email: 'joaozin@jojo.com'
-            }
-        })
-        
-        return {
-            message: 'Usuário criado com sucesso!',
-            data: userCreated
-        }
+    async create(@Body() body: CreateUserDTO) {
+    await this.repository.createUser(body)
+ }
+    @Put(':id')
+    async updateUser(@Param('id', ParseIntPipe) id: number,
+        @Body() body: CreateUserDTO) {
+    }
+    @Delete(':id')
+    async deleteUser(@Param('id', ParseIntPipe) id: number) {
     }
 }
