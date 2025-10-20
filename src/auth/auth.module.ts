@@ -25,6 +25,6 @@ import { JwtAuthGuard } from './jwt-auth.guard';
     //APP_GUARD= token DI Nest que permite registrar um Guard global
   ],
   controllers: [AuthController],
-  exports: [JwtModule],
+  exports: [AuthService,JwtModule],
 })
 export class AuthModule { }

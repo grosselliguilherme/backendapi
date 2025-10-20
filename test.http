@@ -1,0 +1,63 @@
+### 1️⃣ Criar usuário
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Teste",
+  "email": "teste@example.com",
+  "password": "123456"
+}
+
+### 2️⃣ Login do usuário (gera token)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "teste@example.com",
+  "password": "123456"
+}
+
+### 3️⃣ Salvar token em variável
+# Copie o token retornado no login e salve assim:
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoidGVzdGVAZXhhbXBsZS5jb20iLCJuYW1lIjoiVGVzdGUiLCJpYXQiOjE3NjA5NDM4NTEsImV4cCI6MTc2MTAzMDI1MX0.zyGomwougN76hoMuediYjhoJ2qsnaxfpvFwjxariiqM
+# OBS: VS Code REST Client suporta syntax: {{token}}
+
+### 4️⃣ Criar disco (usuário logado)
+POST http://localhost:3000/api/discs
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Álbum Teste",
+  "artist": "Artista Fictício",
+  "price": 49.90,
+  "stock": 10
+}
+
+### 5️⃣ Listar todos os discos
+GET http://localhost:3000/api/discs
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### 6️⃣ Buscar disco específico (id = 1)
+
+GET http://localhost:3000/api/discs/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### 7️⃣ Atualizar disco (id = 1)
+PUT http://localhost:3000/api/discs/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Álbum Atualizado",
+  "artist": "Artista Fictício",
+  "price": 59.90,
+  "stock": 5
+}
+
+### 8️⃣ Deletar disco (id = 1)
+DELETE http://localhost:3000/api/discs/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
